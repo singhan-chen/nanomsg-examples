@@ -3,6 +3,7 @@
 #include <string.h>
 #include <pthread.h>
 #include <stdio.h>
+#include <unistd.h>
 #include <nanomsg/nn.h>
 #include <nanomsg/survey.h>
 
@@ -68,9 +69,9 @@ int client (const char *url, const char *name)
 
 int main (const int argc, const char **argv)
 {
-    if (strncmp (SERVER, argv[1], strlen (SERVER)) == 0 && argc >= 2)
+    if ((argc > 2) && strncmp (SERVER, argv[1], strlen (SERVER)) == 0)
         return server (argv[2]);
-    else if (strncmp (CLIENT, argv[1], strlen (CLIENT)) == 0 && argc >= 3)
+    else if ((argc > 3) && strncmp (CLIENT, argv[1], strlen (CLIENT)) == 0)
         return client (argv[2], argv[3]);
     else
     {

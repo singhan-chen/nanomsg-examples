@@ -57,16 +57,16 @@ int node1 (const char *url)
     assert (bytes == sz_date);
     bytes = nn_recv (sock, &buf, NN_MSG, 0);
     assert (bytes >= 0);
-    printf ("NODE1: RECEIVED DATE %s\n", buf, bytes);
+    printf ("NODE1: RECEIVED DATE %*s\n", bytes, buf);
     nn_freemsg (buf);
     return nn_shutdown (sock, 0);
 }
 
 int main (const int argc, const char **argv)
 {
-    if (strncmp (NODE0, argv[1], strlen (NODE0)) == 0 && argc > 1)
+    if ((argc > 2) && strncmp (NODE0, argv[1], strlen (NODE0)) == 0)
         return node0 (argv[2]);
-    else if (strncmp (NODE1, argv[1], strlen (NODE1)) == 0 && argc > 1)
+    else if ((argc > 2) && strncmp (NODE1, argv[1], strlen (NODE1)) == 0)
         return node1 (argv[2]);
     else
     {
